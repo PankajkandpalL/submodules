@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    #remove_product{
+      background-color: red;
+      border: 1px solid red;
+      color: white;
+      border-radius: 4px;
+    }
+    #remove_product:hover{
+      background-color: white;
+      color: red;
+    }
+    #navbar{
+      height: 50px;
+      border: 4px solid rgb(38, 38, 55);
+      border-radius: 10px;
+      width: 95%;
+      margin: auto;
+      margin-bottom: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #add_more_product{
+      font-size: 24px;
+      border-radius: 4px solid rgb(31, 31, 46);
+      color: white;
+      background-color: rgb(31, 31, 49);
+      height: 100%;
+    }
+    #add_more_product:hover{
+      width: 300px;
+      font-size: 30px;
+      cursor: cell;
+      color:rgb(31, 31, 49);
+      background-color: white;
+      border-radius: 12px;
+    }
+  </style>
+
+  <body>
+    <div id="navbar">
+      <!--Create Add More Product button here, give id as "add_more_product". avoid making spelling mistakes in HTML id's-->
+      <button id="add_more_product">Add More Products</button>
+    </div>
+    <div id="all_products">
+      <!--append all products data here in grid format-->
+      <!-- The Remove Product button will have id as "remove_product" -->
+    </div>
+  </body>
+</html>
+
+<script src="inventory.js"></script>

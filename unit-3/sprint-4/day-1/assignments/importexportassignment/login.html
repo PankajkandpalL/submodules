@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./styles/logsig.css">
+</head>
+<style>
+   
+</style>
+<body>
+   
+</body>
+</html>
+
+<script type="module">
+
+import {rename} from "./components/ls.js";
+
+document.querySelector("body").innerHTML=rename();
+
+
+let obj =JSON.parse(localStorage.getItem("user"));
+
+let form = document.querySelector("#form");
+form.addEventListener("submit", su)
+
+function su(){
+    event.preventDefault();
+
+    let email = form.email.value;
+    let pass = form.password.value;
+
+    if(pass==obj.password && email==obj.email)
+    {
+        localStorage.setItem("details", JSON.stringify(obj));
+        alert("Successfully Login!")
+        window.location.href="index.html"
+    }
+    else if(pass!=obj.password || email!=obj.email)
+    {
+        alert("Wrong Credentials");
+    }
+
+}
+
+</script>

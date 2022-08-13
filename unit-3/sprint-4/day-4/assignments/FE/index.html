@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+
+
+        <input type="text" id="id">
+        <input type="text" id="name">
+        <input type="text" id="price">
+        <input type="button" id="btn" value="Add Product">
+        <div>
+            <input type="text" id="ii">
+        <input type="button" id="del" value="delete">
+        </div>
+        <div>
+            <input type="text" id="up">
+            <input type="button" value="Update" id="update">
+        </div>
+
+
+
+    </div>
+</body>
+</html>
+
+<script>
+
+document.querySelector("#btn").addEventListener("click" , addProduct)
+
+
+async function addProduct(){
+
+    const data={id:document.getElementById("id").value,
+        name:document.getElementById("name").value,
+        price:document.getElementById("price").value
+    }
+
+    //data --> db.json? how to take it to server
+
+    let response = await fetch('http://localhost:3000/api/products',{
+
+        method:"POST",
+        body:JSON.stringify(data),
+        headers:{"Content-Type":"application/json"},
+
+    })
+
+
+    let dat = await response.json();
+
+
+
+
+}
+
+document.querySelector("#del").addEventListener("click", del)
+
+async function del(){
+
+    let pro = document.querySelector("#ii").value
+
+    let response = await fetch(`http://localhost:3000/api/products/${pro}`, {
+
+        method:'DELETE',
+        headers:{"Content-Type":"application/json"},
+
+    })
+
+    let data = await response.json();
+
+}
+
+
+
+document.querySelector("#update").addEventListener("click", update)
+
+async function update(){
+
+    // let pro = document.querySelector("#ii").value
+
+    let response = await fetch(`http://localhost:3000/api/products/3`, {
+
+        method:'PATCH',
+        body: JSON.stringify({
+            name:'ronaldo'
+        }),
+        headers:{"Content-Type":"application/json"},
+
+    })
+
+    let data = await response.json();
+
+}
+
+
+</script>

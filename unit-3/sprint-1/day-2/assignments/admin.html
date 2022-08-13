@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            form {
+                margin: 0 auto;
+                margin-top: 100px;
+                width: 30%;
+                box-shadow: rgba(149, 15, 115, 0.5) 28px 0px 24px 150px;
+                padding: 30px;
+           }
+
+            label {  
+               font-size: 21px;
+           }
+           input{
+               width: 60%;
+               height: 25px;
+           }
+           #image{
+               width: 80%;
+           }
+           #sold{
+               width: 10%;
+           }
+           #add{
+               width: 20%;
+               margin-left: 100px;
+           }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="">Product Name</label><br />
+        <input id="name" type="text" placeholder="Your Name" /><br /><br>
+        <label for="">Category</label><br />
+        <input id="category" type="text" placeholder="Category" /><br /><br>
+        <label for=""></label>Gender<br>
+        <select name="" id="gender">
+            <option value="">--</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br><br>
+        <label for="">Image Url </label><br>
+        <input id="image" type="text" placeholder="enter Url"><br><br>
+        <label for="">Price</label><br>
+        <input type="number" id="price" placeholder="enter Price"><br><br>
+        <input type="checkbox" id="sold"><label for="">Sold</label><br>
+        <br><br>
+        <input type="submit" id="add" value="Submit">
+    </form>    
+</body>
+</html>
+
+<script>
+
+    var form=document.querySelector("form")
+    form.addEventListener("submit", cons)
+
+    function ppname(p,c,g,i,pp,s){
+            this.name=p;
+            this.category=c;
+            this.gender=g;
+            this.image=i;
+            this.price=pp;
+            this.sold=s;
+        }
+
+    var arr=JSON.parse(localStorage.getItem("productdata"))||[];
+
+   
+    function cons(){
+        event.preventDefault();
+
+        
+    var pname=document.querySelector("#name").value;
+    var category=document.querySelector("#category").value;
+    var gender=form.gender.value;
+    var image=form.image.value;
+    var price=form.price.value;
+    var sold=form.sold.checked;
+
+    var obj=new ppname(pname,category,gender,image,price,sold)
+    arr.push(obj)
+    // console.log(arr)
+
+    localStorage.setItem("productdata", JSON.stringify(arr))
+
+
+    window.location.href="products.html"
+    }
+
+</script>

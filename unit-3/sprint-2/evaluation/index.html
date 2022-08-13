@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <style>
+    body {
+      background-color: aliceblue;
+    }
+    body::-webkit-scrollbar {
+      display: none;
+    }
+    #navbar {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 96%;
+      height: 60px;
+      border: 8px solid blue;
+      border-radius: 20px;
+      margin-bottom: 100px;
+      margin: auto;
+      background-color: rgb(23, 16, 49);
+      color: antiquewhite;
+    }
+    #navbar > div:first-child {
+      display: flex;
+      width: 50%;
+      height: 70px;
+      justify-content: space-around;
+      align-items: center;
+      /* border: 1px solid red; */
+    }
+    #menu {
+      display: grid;
+      margin-top: 40px;
+      width: 95%;
+      margin: auto;
+      gap: 80px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      /* border: 1px solid black; */
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 30px;
+    }
+    #coffee_count {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      position: absolute;
+      right: 440px;
+      top: 35px;
+      color: antiquewhite;
+    }
+    #navbar > div:first-child > h2:last-child {
+      color: black;
+    }
+    #navbar > div:first-child > h2:last-child:hover {
+      cursor: pointer;
+    }
+    a {
+      text-decoration: none;
+      color: antiquewhite;
+    }
+    #add_to_bucket {
+      border: none;
+      color: crimson;
+      background-color: beige;
+      border-radius: 4px;
+      padding: 5px;
+      transition: all 300ms linear;
+    }
+    #add_to_bucket:hover {
+      transform: scale(1.1);
+      color: antiquewhite;
+      background-color: crimson;
+      border: 2px solid red;
+      cursor: pointer;
+    }
+    #menu > div {
+      /* border: 2px solid coral; */
+      padding-bottom: 10px;
+      border-radius: 10px;
+      background-color: cornsilk;
+      overflow: hidden;
+    }
+    #menu > div > img {
+      transition: all 500ms linear;
+    }
+    #menu > div > img:hover {
+      transform: scale(1.2);
+      /* transform: rotate(1deg); */
+    }
+  </style>
+  <body>
+    <div id="navbar">
+      <!--Add navbar divs here-->
+      <div>
+        <h2>Login</h2>
+        <h2>Signup</h2>
+        <h2>Products</h2>
+        <h2><a href="bucket.html">Bucket</a></h2>
+      </div>
+      <!-- Link to bucket.html -->
+      <div id="coffee_count">
+        <!--Show total number of coffee added to bucket here, do not add anything only Total count. Not even "Count - 5" but like this "5" -->
+      </div>
+    </div>
+
+    <div id="menu">
+      <!--Show coffee list here in grid format-->
+      <!-- add an add to bucket button to each item, give it HTML id as 'add_to_bucket' -->
+    </div>
+  </body>
+</html>
+
+<script src="index.js"></script>
+
+<!-- netlify-link > `https://sensational-duckanoo-0f43e8.netlify.app/` -->

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#n{
+    border: 4px solid black;
+    border-radius: 4px;
+    width: 95%;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 30px;
+    margin: auto;
+    background-color: white;
+    margin-bottom: 100px ;
+}
+nav{
+    display: flex;
+    width: 50%;
+    /* border: 1px solid rgb(249, 13, 13); */
+    font-size: 20px;
+    justify-content: space-between;
+    margin-right: 100px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a>p{
+    font-size: 20px;
+    color: whitesmoke;
+    background-color: rgb(8, 8, 30);
+    border: 1px solid rgb(8, 8, 30);
+    border-radius: 3px;
+    padding: 2px;
+    opacity: 0.8;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+    </style>
+</head>
+<body>
+    <div id="n">
+        <nav>
+          <div><a href="home.html"><p>Add More Details</p></a></div>
+          <div><p id="b11">Batch-1</p></div>        
+          <div><p id="b22">Batch-2</p></div>
+      </div>
+      <div id="append">
+
+      </div>
+</body>
+</html>
+
+<script>
+
+    var b1c=JSON.parse(localStorage.getItem("b1"))||0;
+    var b2c=JSON.parse(localStorage.getItem("b2"))||0;
+
+    var arr=JSON.parse(localStorage.getItem("details"));
+
+    displaydata(arr)
+
+    function displaydata(data){
+
+        document.querySelector("#append").innerHTML="";
+
+        var div=document.createElement("div")
+        div.style.display="grid"
+        div.style.gridTemplateColumns="1fr 1fr 1fr"
+        div.style.gridTemplateRows="auto"
+        div.style.width="85%"
+        div.style.margin="auto"
+        div.style.gap="20px"
+
+        data.forEach(function(el,index){
+            
+            var mdiv=document.createElement("div")
+
+            var img=document.createElement("img")
+            img.setAttribute("src", el.image)
+            img.style.height="300px"
+            img.style.width="300px"
+
+            var bdiv=document.createElement("div")
+
+            var name=document.createElement("h2")
+            name.innerText=el.name;
+            bdiv.append(name)
+
+            var course=document.createElement("p")
+            course.innerText=el.course
+
+            var batch=document.createElement("p")
+            batch.innerText=el.batch
+
+            var unit=document.createElement("p")
+            unit.innerText=el.unit
+
+            var remove=document.createElement("button")
+            remove.innerText="REMOVE"
+            remove.style.cursor="pointer"
+            remove.addEventListener("click", function(){
+                remov(el,index)
+            })
+
+            bdiv.append(course,batch,unit,remove)
+            mdiv.append(img,bdiv)
+            div.append(mdiv)
+        });
+
+        document.querySelector("#append").append(div)
+    }
+
+
+    
+    var Batch1=document.querySelector("#b11")
+    Batch1.innerText="Total Students in Batch-1: "+ b1c
+
+    var Batch2=document.querySelector("#b22")
+    Batch2.innerText="Total Students in Batch-2: "+ b2c
+
+
+
+    var trash=JSON.parse(localStorage.getItem("trash"))||[];
+
+    function remov(el,index){
+        arr.splice(index,1)
+        localStorage.setItem("details", JSON.stringify(arr))
+        displaydata(arr)
+
+        trash.push(el)
+        localStorage.setItem("trash", JSON.stringify(trash))
+
+        window.location.reload();
+
+        if(el.batch=="Batch-1")
+        {
+            b1c--;
+            localStorage.setItem("b1", JSON.stringify(b1c))
+        }
+        if(el.batch=="Batch-2")
+        {
+            b2c--;
+            localStorage.setItem("b2", JSON.stringify(b2c))
+        }
+
+    }
+
+</script>

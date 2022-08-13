@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #n {
+    border: 4px solid black;
+    border-radius: 4px;
+    width: 95%;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 30px;
+    margin: auto;
+    background-color: white;
+    margin-bottom: 100px;
+  }
+  a{
+    text-decoration: none;
+  }
+  nav {
+    display: flex;
+    width: 30%;
+    font-size: 20px;
+    justify-content: space-between;
+    color: black;
+  }
+  nav>div{
+    color: black;
+  }
+  nav p{
+    color: black;
+  }
+  form{
+    margin: auto;
+    border: 1px solid white;
+    width: 20%;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  input{
+    height: 25px;
+    width: 70%;
+  }
+  h2{
+    margin-left: 90px;
+  }
+  #sub{
+    height: 25px;
+    width: 20%;  
+    /* margin-left: 100px; */
+  }  
+  #course,#unit,#batch{
+    height: 25px;
+    width: 70%;
+    background-color: rgba(56, 56, 63, 0.834);
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(4, 4, 43);
+}
+#course:hover,#unit:hover,#batch:hover{
+    cursor: pointer;
+}
+#n{
+    border: 4px solid black;
+    border-radius: 4px;
+    width: 95%;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 30px;
+    margin: auto;
+    background-color: white;
+    margin-bottom: 100px ;
+}
+nav{
+    display: flex;
+    width: 50%;
+    /* border: 1px solid rgb(249, 13, 13); */
+    font-size: 20px;
+    justify-content: space-between;
+    margin-right: 100px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a>p{
+    font-size: 20px;
+    color: whitesmoke;
+    background-color: rgb(8, 8, 30);
+    border: 1px solid rgb(8, 8, 30);
+    border-radius: 3px;
+    padding: 2px;
+    opacity: 0.8;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+    </style>
+</head>
+<body>
+    <div id="n">
+        <nav>
+          <div><a href="index.html"><p>Student's Detail</p></a></div>
+          <div><p id="b11">Batch-1</p></div>        
+          <div><p id="b22">Batch-2</p></div>
+      </div>
+    <form>
+        <h1>Fill Your Details</h1>
+        <input
+          type="text"
+          id="name"
+          required="required"
+          placeholder="Enter Your Name"
+        /><br /><br />
+        <select id="course">
+            <option value="Backend Developer">Backend Developer</option>
+            <option value="Frontend Developer">Frontend Developer</option>
+            <option value="Data-Analyst">Data-Analyst</option>
+            <option value="UI/UX">UI/UX</option>
+        </select><br /><br />
+        <select id="unit">
+            <option value="Unit-1">Unit-1</option>
+            <option value="Unit-2">Unit-2</option>
+            <option value="Unit-3">Unit-3</option>
+            <option value="Unit-4">Unit-4</option>
+            <option value="Unit-5">Unit-5</option>
+        </select><br /><br />
+        <input
+          type="url"
+          id="image_url"
+          required="required"
+          placeholder="Enter Image Url"
+        /><br /><br />
+        <select id="batch">
+            <option value="Batch-1">Batch-1</option>
+            <option value="Batch-2">Batch-2</option>
+        </select><br /><br />
+        <input type="Submit" id="sub" />
+      </form>
+</body>
+</html>
+
+<script>
+    var b1c=JSON.parse(localStorage.getItem("b1"))||0;
+    var b2c=JSON.parse(localStorage.getItem("b2"))||0;
+
+var form = document.querySelector("form");
+form.addEventListener("submit", sub)
+
+function details(n,c,i,b,u){
+    this.name=n;
+    this.course=c;
+    this.image=i;
+    this.batch=b;
+    this.unit=u;
+}
+
+var arr=JSON.parse(localStorage.getItem("details"))||[];
+
+function sub(){
+    event.preventDefault();
+
+    let name=form.name.value;
+    let course=form.course.value;
+    let image=form.image_url.value;
+    let batch=form.batch.value;
+    let unit=form.unit.value;
+
+    var obj=new details(name,course,image,batch,unit)
+    arr.push(obj)
+
+    localStorage.setItem("details", JSON.stringify(arr))
+
+     if(form.batch.value=="Batch-1")
+    {
+        b1c++;
+        localStorage.setItem("b1", JSON.stringify(b1c))
+        console.log(b1c)
+    }
+    if(form.batch.value=="Batch-2")
+    {
+        b2c++;
+        localStorage.setItem("b2", JSON.stringify(b2c))
+        console.log(b2c)
+    }
+
+    window.location.href="index.html"
+}
+
+    var b1=document.querySelector("#b11")
+b1.innerText="Total Students In Batch-1: "+JSON.parse(localStorage.getItem("b1"))
+
+
+var b2=document.querySelector("#b22")
+b2.innerText="Total Students In Batch-2: "+JSON.parse(localStorage.getItem("b2"))
+
+
+
+</script>

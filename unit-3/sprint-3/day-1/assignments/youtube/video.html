@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+    <style>
+        #append{
+            height: 800px;
+            width: 1000px;
+            margin: auto;
+        }
+        #nav{
+            height: 80px;
+            border: 4px solid black;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        #nav>div{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div>
+            <h2>BACK</h2>
+        </div>
+        <h1>Video</h1>
+    </div>
+    <div id="append"></div>
+</body>
+</html>
+
+<script>
+
+    document.querySelector("#nav>div").addEventListener("click", ff)
+
+
+    function ff(){
+
+        window.location.href="youtubees6.html";
+
+    }
+
+
+    var obj = JSON.parse(localStorage.getItem("video"))
+    // console.log(obj)
+
+ 
+
+    let displaydata = (obj) => {
+
+        document.querySelector("#append").innerHTML="";
+
+        let mdiv = document.createElement("div")
+
+        let iframe = document.createElement("iframe")
+        iframe.src = `https://www.youtube.com/embed/${obj}`
+        iframe.width = "1000px"
+        iframe.height = "600px"
+        iframe.allowFullscreen = true;
+
+        mdiv.append(iframe)
+
+        document.querySelector("#append").append(mdiv);
+
+    }
+
+   displaydata(obj)
+</script>

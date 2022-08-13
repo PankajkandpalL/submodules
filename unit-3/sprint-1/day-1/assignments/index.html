@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DICE</title>
+    <link
+      rel="icon"
+      href="data:image/png;base64,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"
+      type="image/x-icon"
+    />
+    <style>
+      * {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body > div:nth-child(1),
+      body > div:nth-child(1) {
+        width: 100%;
+        /* border: 1px solid red; */
+        margin-top: 30px;
+        height: 100px;
+        background-color: aqua;
+      }
+      body > div:nth-child(2) {
+        height: 400px;
+        /* border: 1px solid black; */
+        background-color: white;
+        margin-top: 30px;
+      }
+      #member-1,
+      #member-2,
+      #member-3 {
+        width: 100%;
+        height: 100px;
+        /* border: 1px solid green; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+      }
+      #member-3 + div {
+        width: 100%;
+        height: 100px;
+        /* border: 1px solid green; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #winner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #roll {
+        width: 220px;
+        height: 50px;
+        border: 1px solid teal;
+        background-color: rgb(155, 203, 203);
+        padding: 20px;
+        border-radius: 6px;
+      }
+      #roll:hover {
+        cursor: pointer;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        color: white;
+        transition: ease-out;
+        transform: scale(1.2);
+        padding: 5px;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="winner">
+      <h2></h2>
+    </div>
+    <div>
+      <div id="member-1"><h2>Roll The DICE!</h2></div>
+      <div id="member-2"><h2>Roll The DICE!</h2></div>
+      <div id="member-3"><h2>Roll The DICE!</h2></div>
+      <div><button id="roll">ROLL THE DICE</button></div>
+    </div>
+  </body>
+</html>
+
+<script>
+  document.querySelector("#roll").addEventListener("click", dicing);
+
+  var winner = document.querySelector("#winner");
+  var first = document.querySelector("#member-1");
+  var second = document.querySelector("#member-2");
+  var third = document.querySelector("#member-3");
+
+  function dicing() {
+    function getRandomInt1(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    var for1 = getRandomInt1(6);
+    first.innerHTML = `<h2>Score of Member A:- ${for1}</h2>`;
+
+    function getRandomInt2(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    var for2 = getRandomInt2(6);
+    second.innerHTML = `<h2>Score of Member B:- ${for2}</h2>`;
+
+    function getRandomInt3(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    var for3 = getRandomInt3(6);
+    third.innerHTML = `<h2>Score of Member C:- ${for3}</h2>`;
+
+    if (for1 > for2 && for1 > for3 && for2 > for3) {
+      winner.innerHTML = `<h2>Winner Is Member A with a score of ${for1}</h2>`;
+      first.style.backgroundColor = "green";
+      second.style.backgroundColor = "yellow";
+      third.style.backgroundColor = "red";
+    }
+    if (for1 > for2 && for1 > for3 && for3 > for2) {
+      winner.innerHTML = `<h2>Winner Is Member A with a score of ${for1}</h2>`;
+      first.style.backgroundColor = "green";
+      third.style.backgroundColor = "yellow";
+      second.style.backgroundColor = "red";
+    }
+    if (for2 > for1 && for2 > for3 && for1 > for3) {
+      winner.innerHTML = `<h2>Winner Is Member B with a score of ${for2}</h2>`;
+      first.style.backgroundColor = "yellow";
+      third.style.backgroundColor = "red";
+      third.style.color = "white";
+      second.style.backgroundColor = "green";
+    }
+    if (for2 > for1 && for2 > for3 && for3 > for1) {
+      winner.innerHTML = `<h2>Winner Is Member B with a score of ${for2}</h2>`;
+      first.style.backgroundColor = "red";
+      third.style.backgroundColor = "yellow";
+      second.style.backgroundColor = "green";
+    }
+    if (for3 > for1 && for3 > for2 && for1 > for2) {
+      winner.innerHTML = `<h2>Winner Is Member C with a score of ${for3}</h2>`;
+      first.style.backgroundColor = "yellow";
+      second.style.backgroundColor = "red";
+      third.style.backgroundColor = "green";
+    }
+    if (for3 > for1 && for3 > for2 && for2 > for1) {
+      winner.innerHTML = `<h2>Winner Is Member C with a score of ${for3}</h2>`;
+      first.style.backgroundColor = "red";
+      second.style.backgroundColor = "yellow";
+      third.style.backgroundColor = "green";
+      third.style.color = "white";
+    }
+    if (for1 == for2 && for1 > for3 && for2 > for3) {
+      winner.innerHTML = `<h2>It's a draw between Member A and Member B with a score of ${for1}</h2>`;
+      first.style.backgroundColor = "blue";
+      first.style.color = "white";
+      second.style.backgroundColor = "blue";
+      second.style.color = "white";
+      third.style.backgroundColor = "yellow";
+      third.style.color = "red";
+    }
+    if (for1 == for2 && for1 < for3 && for2 < for3) {
+      winner.innerHTML = `<h2>Winner Is Member c with a score of ${for3}</h2>`;
+      first.style.backgroundColor = "blue";
+      first.style.color = "white";
+      second.style.backgroundColor = "blue";
+      second.style.color = "white";
+      third.style.backgroundColor = "green";
+      third.style.color = "black";
+    }
+    if (for1 == for3 && for1 > for2 && for3 > for2) {
+      winner.innerHTML = `<h2>It's a draw between Member A and Member C with a score of ${for3}</h2>`;
+      first.style.backgroundColor = "blue";
+      first.style.color = "white";
+      second.style.backgroundColor = "yellow";
+      second.style.color = "white";
+      third.style.backgroundColor = "blue";
+      third.style.color = "black";
+    }
+    if (for1 == for3 && for1 < for2 && for3 < for2) {
+      winner.innerHTML = `<h2>Winner Is Member B with a score of ${for2}</h2>`;
+      first.style.backgroundColor = "blue";
+      first.style.color = "white";
+      second.style.backgroundColor = "green";
+      second.style.color = "white";
+      third.style.backgroundColor = "blue";
+      third.style.color = "black";
+    }
+    if (for2 == for3 && for1 < for2 && for3 > for1) {
+      winner.innerHTML = `<h2>It's a draw between Member B and Member C with a score of ${for3}</h2>`;
+      first.style.backgroundColor = "yellow";
+      first.style.color = "white";
+      second.style.backgroundColor = "blue";
+      second.style.color = "white";
+      third.style.backgroundColor = "blue";
+      third.style.color = "black";
+    }
+    if (for2 == for3 && for1 > for2 && for3 < for1) {
+      winner.innerHTML = `<h2>Winner Is Member A with a score of ${for1}</h2>`;
+      first.style.backgroundColor = "green";
+      first.style.color = "white";
+      second.style.backgroundColor = "blue";
+      second.style.color = "white";
+      third.style.backgroundColor = "blue";
+      third.style.color = "black";
+    }
+    if (for2 == for3 && for1 == for3 && for2 == for1) {
+      winner.innerHTML = `<h2>TIE!!!!</h2>`;
+      first.style.backgroundColor = "blue";
+      first.style.color = "white";
+      second.style.backgroundColor = "blue";
+      second.style.color = "white";
+      third.style.backgroundColor = "blue";
+      third.style.color = "white";
+    }
+  }
+</script>

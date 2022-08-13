@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+
+    function fc(n,p,c){
+
+        this.name=n;
+        this.profession=p;
+        this.city=c;
+    }
+
+    var p1=new fc("Amar","singer","Goa")
+    var p2=new fc("Akbar","Chef","Mumbai")
+    var p3=new fc("Anthony","Magician","Kashmir")
+
+    console.log(p1,p2,p3)
+    
+
+    function change(){
+        if(this.profession=="singer")
+        {
+            this.profession="magician"
+        }
+        if(this.profession=="magician")
+        {
+            this.profession="chef"
+        }
+        if(this.profession=="chef")
+        {
+            this.profession="singer"
+        }
+    }
+
+    change.call(p1)
+    change.call(p2)
+    change.call(p3)
+
+    console.log(p1,p2,p3)
+
+</script>

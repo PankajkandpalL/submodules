@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotstar</title>
+  </head>
+  <style>
+      *{
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          /* background-color: rgb(201, 221, 230); */
+      }
+      body{
+          position: relative;
+          overflow: scroll;
+      }
+      body::-webkit-scrollbar{
+          display: none;
+      }
+      nav{
+          background-color: rgb(26, 37, 72);
+          height: 80px;
+          width: 98%;
+          border-radius: 12px;
+          border: 4px solid white;
+          margin: auto;
+          display: flex;
+      }
+    input {
+      width: 400px;
+      height: 30px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      background-color: rgb(144, 187, 152);
+      color: rgb(35, 31, 113);
+      padding-left: 20px;
+      position: absolute;
+      right: 60px;
+      top: 30px;
+      border-bottom: none;
+    }
+    #recommend {
+      /* display: block; */
+      height: 200px;
+      width: 427px;
+      border: 1px solid black;
+      border-top: none;
+      overflow: scroll;
+      scroll-behavior: smooth;
+      z-index: 99;
+      position: absolute;
+      top: 64px;
+      right: 58px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      padding: 0px;
+      margin: 0px;
+      background-color:rgb(223, 226, 229);
+      /* display: none; */
+    }
+    #recommend::-webkit-scrollbar {
+      display: none;
+    }
+    #recommend > div {
+      background-color: rgb(158, 154, 164);
+      color: white;
+      width: 86%;
+      margin: 5px;
+      border-radius: 4px;
+      margin: auto;
+      transition: all 200ms linear;
+    }
+    #recommend img{
+        border-radius: 10px;
+    }
+    #recommend > div:hover{
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        transform: scale(1.1);
+        background-color: black;
+    }
+    #trendingdiv {
+        display: grid;
+        width: 90%;
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: repeat(5,auto);
+        /* margin: auto; */
+        margin-left: 40px;
+        gap: 20px;
+        margin-top: 40px;
+    }
+    #over::-webkit-scrollbar{
+        display: none;
+    }
+    section{
+        background-color: rgb(203, 255, 255);
+        padding-right: 20px;
+        padding-top: 6px;
+        margin-top: 30px;
+        border-radius: 20px;
+        padding-bottom: 6px;
+    }
+    #slideshow{
+        width: 98%;
+        height: 800px;
+        margin-top: 20px;
+        border-radius: 24px;
+        /* margin: auto; */
+        margin-left: 25px;
+    }
+    #slideshow img{
+        width:99%;
+        height: 800px;
+        border-radius: 10px;
+        
+    }
+  </style>
+  <body>
+    <nav>
+        <input type="text" id="query" placeholder="Search" />
+    </nav>
+    <!-- <div id="recommend"></div> -->
+    <div id="slideshow"></div>
+    <section></section>
+  </body>
+</html>
+
+<script>
+
+    var query = document.querySelector("#query");
+    query.addEventListener("input", debounce)
+
+    async function showmovies(q){
+
+        let url=`http://www.omdbapi.com/?s=${q}&apikey=107307d6`
+
+        try{
+
+            let data = await fetch(url);
+            let user = await data.json();
+
+            return user;
+            // console.log(user)
+
+        }
+
+        catch(error){
+            console.log(error)
+        }
+
+    }
+
+    async function main(){
+
+        let q = query.value;
+        let x = showmovies(q)
+        let data = await x;
+
+        console.log(data)
+        append(data)
+    }
+
+    let id;
+
+    function debounce(){
+
+        if(id){
+            clearTimeout(id);
+        }
+
+        id = setTimeout(function(){
+
+            main();
+
+        },1000) 
+
+    }
+
+    let rdiv = document.createElement("div")
+    rdiv.setAttribute("id", "recommend")
+
+    function append(data){
+
+        if(data.Search==undefined)
+        {
+            rdiv.innerHTML="";
+            let ediv = document.createElement("div")
+            ediv.style.height="100%"
+            ediv.style.width="100%"
+            ediv.style.display="flex"
+            ediv.style.justifyContent="center"
+            ediv.style.alignItems="center"
+
+            let er = document.createElement("p")
+            er.innerText="No Search Results";
+
+            ediv.append(er)
+            rdiv.append(ediv);
+            document.querySelector("body").append(rdiv)
+        }
+
+        else
+        {
+            rdiv.innerHTML="";
+
+            data.Search.forEach(function(el){
+
+            let tdiv = document.createElement("div")
+            tdiv.style.cursor="pointer";
+            tdiv.style.display="flex"
+            tdiv.style.justifyContent="space-between"
+            tdiv.style.alignItems="center"
+            tdiv.style.marginBottom="10px"
+            // tdiv.style.border="1px solid black"
+            tdiv.style.boxShadow="rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
+            tdiv.style.padding="10px"
+            tdiv.addEventListener("click", function(){
+                moviedetails(el);
+            })
+
+            let img=document.createElement("img")
+            img.setAttribute("src", el.Poster)
+            img.style.width="80px"
+            img.style.height="80px"
+            
+            let p = document.createElement("p")
+            p.innerText = el.Title;
+
+            tdiv.append(img,p)
+            rdiv.append(tdiv)
+            document.querySelector("nav").append(rdiv);
+
+        })
+
+        }
+
+    }
+
+    function no(p,t,y,ty)
+    {
+        this.Poster=p;
+        this.Title=t;
+        this.Year=y;
+        this.Type=ty;
+    }
+
+    function moviedetails(el){
+
+        var poster=el.Poster;
+        var title=el.Title;
+        var year=el.Year;
+        var type=el.Type;
+
+        var obj = new no(poster,title,year,type)
+
+        localStorage.setItem("movies", JSON.stringify(obj));
+
+        window.location.href="trending.html";
+
+    }
+
+
+    const apikey=`41e22d9b55339f60b15b9ac6d46d9553`
+
+    async function trending(){
+
+        const urlid = `https://api.themoviedb.org/3/trending/movie/day?api_key=${apikey}` 
+
+        let data = await fetch(urlid)
+        let user = await data.json();
+
+        console.log(user)
+        append1(user)
+        sliding(user)
+
+    }
+    trending();
+
+
+
+    function sliding(data){
+
+    let slideshow=document.querySelector("#slideshow");
+    let m=0;
+
+    let img = document.createElement("img")
+    img.setAttribute("src", `https://image.tmdb.org/t/p/original/${data.results[m].poster_path}`)
+    slideshow.append(img)
+
+        setInterval(function(){
+
+            slideshow.innerHTML="";
+
+            m++;
+
+            if(m==data.results.length)
+            {
+                m=0;
+            }
+
+        img.setAttribute("src", `https://image.tmdb.org/t/p/original/${data.results[m].poster_path}`)
+        slideshow.append(img)
+
+
+        },2500)
+    
+    }
+    
+
+
+
+
+
+    let trendiv=document.createElement("div")
+    trendiv.setAttribute("id", "trendingdiv")
+
+    function append1(data){
+
+        for(var i=0;i<data.results.length;i++)
+        {
+            let div = document.createElement("div");
+        div.style.borderRadius="10px"
+        div.style.backgroundColor="rgb(201, 221, 230)"
+        div.style.padding="20px"
+
+        let img = document.createElement("img")
+        img.setAttribute("src", `https://image.tmdb.org/t/p/original/${data.results[i].poster_path}`)
+        img.style.borderTopLeftRadius="10px"
+        img.style.borderTopRightRadius="10px"
+        img.style.width="300px"
+        img.style.height="300px"
+        img.style.textAlign="auto"
+
+
+        let hdiv = document.createElement("div")
+        hdiv.style.display = "flex";
+        hdiv.style.justifyContent = "space-between"
+        hdiv.style.alignItems = "center";
+
+            let h2 = document.createElement("h2")
+            h2.innerText = data.results[i].original_title;
+            hdiv.append(h2)
+
+        let h22 = document.createElement("h3")
+        h22.innerText="Language: "+data.results[i].original_language.toUpperCase();
+        h22.style.color="blue"   
+
+        let odiv=document.createElement("div")
+        odiv.style.display="flex"
+        odiv.style.overflowY="scroll"
+        odiv.style.height="80px"
+        odiv.setAttribute("id", "over")
+
+            let h5 = document.createElement("h5")
+            h5.innerText = data.results[i].overview
+            h5.style.color="green"
+            odiv.append(h5)
+
+        let year = document.createElement("h3")
+        year.innerText="Releasing On: "+data.results[i].release_date
+
+        let rate=document.createElement("h5")
+        rate.innerText=data.results[i].vote_average + " ratings on IMDb";
+        rate.style.color="red"
+
+        div.append(img,hdiv,h22,odiv,year,rate)
+        trendiv.append(div)
+        }
+
+        document.querySelector("section").append(trendiv);
+
+    }
+
+
+
+
+</script>
+
+
+<!--  -->

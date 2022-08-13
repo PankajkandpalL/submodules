@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detailed News</title>
+  </head>
+  <style>
+    #container{
+      display: flex;
+    }
+    #sidebar{
+      border: 1px solid black;
+      width: 20%;
+      margin-top: 20px;
+      height: 648px;
+    }
+    #navbar{
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      margin: auto;
+      margin-top: 20px;
+      align-items: center;
+      border: 4px solid blueviolet;
+      height: 50px;
+      border-radius: 12px;
+      padding-left: 15px;
+      padding-right: 14px;
+    }
+    #detailed_news{
+      margin-top: 20px;
+    }
+  </style>
+  <body>
+    <div id="navbar">
+      <!-- - The nav-bar will have link for home page(Id:- "home") and link for world news(Id:- "world_news). -->
+      <div id="home"><a href="index.html">HOME</a></div>
+      <div id="world_news"><a href="worldNews.html">NEWS</a></div>     
+    </div>
+    <div id="container">
+      <div id="sidebar">
+        <!-- Sidebar will have
+         - Image of user (Id:- "user_img")
+  - Name of user (Id:- "user_name")
+  - Email of user (Id:- "user_email")
+  - Country of user (Id:- "user_country) -->
+      </div>
+      <div id="detailed_news">
+        <!-- - The detailed news will be appended inside div with Id as "detailed_news", which will have following:-
+      * Image tag for image
+      * H3 tag for title
+      * H4 tag for description -->
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="module" src="./scripts/news.js">
+
+ 
+
+
+</script>

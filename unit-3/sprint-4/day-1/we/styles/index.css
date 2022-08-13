@@ -1,0 +1,17 @@
+#navbar{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: auto;
+}
+#nav{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    align-items: center;
+}

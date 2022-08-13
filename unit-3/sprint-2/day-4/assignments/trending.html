@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <font-awesome-icon icon="fa-regular fa-left" /> -->
+    <style>
+      nav{
+          background-color: rgb(26, 37, 72);
+          height: 80px;
+          width: 98%;
+          border-radius: 12px;
+          border: 4px solid white;
+          margin: auto;
+          display: flex;
+      }
+    input {
+      width: 400px;
+      height: 30px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      background-color: rgb(144, 187, 152);
+      color: rgb(35, 31, 113);
+      padding-left: 20px;
+      position: absolute;
+      right: 60px;
+      top: 30px;
+      border-bottom: none;
+    }
+    #recommend {
+      /* display: block; */
+      height: 200px;
+      width: 427px;
+      border: 1px solid black;
+      border-top: none;
+      overflow: scroll;
+      scroll-behavior: smooth;
+      z-index: 99;
+      position: absolute;
+      top: 64px;
+      right: 58px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      padding: 0px;
+      margin: 0px;
+      background-color:rgb(223, 226, 229);
+      /* display: none; */
+    }
+    #recommend::-webkit-scrollbar {
+      display: none;
+    }
+    #recommend > div {
+      background-color: rgb(158, 154, 164);
+      color: white;
+      width: 86%;
+      margin: 5px;
+      border-radius: 4px;
+      margin: auto;
+      transition: all 200ms linear;
+    }
+    #recommend img{
+        border-radius: 10px;
+    }
+    #recommend > div:hover{
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        transform: scale(1.1);
+        background-color: black;
+    }
+    #back{
+        margin-left: 500px;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 30px;
+        left: -450px;
+    }
+    #back1{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+    #moviediv{
+        margin: auto;
+        border: 5px solid rgb(0, 208, 255);
+        padding: 10px;
+        width: 300px;
+        border-radius: 12px;
+        background-color: rgb(87, 199, 251);
+        color: white;
+    }
+    #moviediv>img{
+        border-top-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+    </style>
+</head>
+<body>
+    <nav>
+        <div id="one">
+            <input type="text" id="query" placeholder="Search" />
+        </div>
+    </nav>
+    <div id="back"><img id="back1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Arrow_left_font_awesome.svg/1024px-Arrow_left_font_awesome.svg.png" alt=""></div>
+</body>
+</html>
+
+<script>
+
+    document.querySelector("#back").addEventListener("click",function(){
+        window.location.href="hotstar.html"
+    })
+
+    var query = document.querySelector("#query");
+    query.addEventListener("input", debounce)
+
+    async function showmovies(q){
+
+        let url=`http://www.omdbapi.com/?s=${q}&apikey=107307d6`
+
+        try{
+
+            let data = await fetch(url);
+            let user = await data.json();
+
+            return user;
+            // console.log(user)
+
+        }
+
+        catch(error){
+            console.log(error)
+        }
+
+    }
+
+    async function main(){
+
+        let q = query.value;
+        let x = showmovies(q)
+        let data = await x;
+
+        console.log(data)
+        append(data)
+    }
+
+    let id;
+
+    function debounce(){
+
+        if(id){
+            clearTimeout(id);
+        }
+
+        id = setTimeout(function(){
+
+            main();
+
+        },1000) 
+
+    }
+
+    let rdiv = document.createElement("div")
+    rdiv.setAttribute("id", "recommend")
+
+    function append(data){
+
+        if(data.Search==undefined)
+        {
+            rdiv.innerHTML="";
+            let ediv = document.createElement("div")
+            ediv.style.height="100%"
+            ediv.style.width="100%"
+            ediv.style.display="flex"
+            ediv.style.justifyContent="center"
+            ediv.style.alignItems="center"
+
+            let er = document.createElement("p")
+            er.innerText="No Search Result";
+
+            ediv.append(er)
+            rdiv.append(ediv);
+            document.querySelector("#one").append(rdiv)
+        }
+
+        else
+        {
+            rdiv.innerHTML="";
+
+            data.Search.forEach(function(el){
+
+            let tdiv = document.createElement("div")
+            tdiv.style.cursor="pointer";
+            tdiv.style.display="flex"
+            tdiv.style.justifyContent="space-between"
+            tdiv.style.alignItems="center"
+            tdiv.style.marginBottom="10px"
+            // tdiv.style.border="1px solid black"
+            tdiv.style.boxShadow="rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px"
+            tdiv.style.padding="10px"
+            tdiv.addEventListener("click", function(){
+                moviedetails1(el);
+            })
+
+            let img=document.createElement("img")
+            img.setAttribute("src", el.Poster)
+            img.style.width="80px"
+            img.style.height="80px"
+
+            let p = document.createElement("p")
+            p.innerText = el.Title;
+
+            tdiv.append(img,p)
+            rdiv.append(tdiv)
+            document.querySelector("#one").append(rdiv);
+
+        })
+
+        }
+
+    }
+
+    function no(p,t,y,ty)
+    {
+        this.Poster=p;
+        this.Title=t;
+        this.Year=y;
+        this.Type=ty;
+    }
+
+    function moviedetails1(el){
+
+        var poster=el.Poster;
+        var title=el.Title;
+        var year=el.Year;
+        var type=el.Type;
+
+        var obj = new no(poster,title,year,type)
+
+        localStorage.setItem("movies", JSON.stringify(obj));
+
+        // window.location.href="trending.html";
+        window.location.reload()
+
+    }
+
+    
+    var obj1=JSON.parse(localStorage.getItem("movies"));
+
+    moviedetails(obj1);
+
+    function moviedetails(el){
+
+        var moviediv=document.createElement("div")
+        moviediv.innerHTML="";
+
+        let div = document.createElement("div")
+        div.setAttribute("id", "moviediv")
+
+        let img = document.createElement("img")
+        img.setAttribute("src", el.Poster)
+
+        let title=document.createElement("h1")
+        title.innerText=el.Title;
+        
+        let type=document.createElement("h3")
+        type.innerText=el.Type.toUpperCase()
+
+        let ry=document.createElement("p")
+        ry.innerText="Release Year: "+el.Year
+        
+        div.append(img,title,type,ry);
+        moviediv.append(div);
+        document.querySelector("body").append(moviediv);
+
+    }
+
+</script>
+
+
+
+

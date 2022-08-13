@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast</title>
+  </head>
+  <style>
+    * {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+    nav {
+      height: 70px;
+      width: 100%;
+      border: 5px solid rgb(15, 15, 53);
+      background-color: rgb(36, 36, 96);
+      border-radius: 10px;
+      margin: auto;
+    }
+    #enter_name {
+      margin-left: 600px;
+      margin-top: 20px;
+      height: 30px;
+      border-radius: 20px;
+      width: 250px;
+      padding-left: 20px;
+    }
+    #search {
+      height: 30px;
+      border-radius: 10px;
+    }
+    #search:hover {
+      cursor: pointer;
+    }
+    .gmap_canvas {
+      overflow: hidden;
+      background: none !important;
+      height: 500px;
+      width: 600px;
+    }
+    #alldata {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 40px;
+      margin-bottom: 50px;
+    }
+    #city_weather {
+      /* border: 1px solid red; */
+      border-radius: 20px;
+      width: 30%;
+      background-color: rgb(188, 206, 251);
+      color: #f5f5f5;
+      /* opacity: 0.5; */
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    #city_weather h1 {
+      color: rgb(7, 7, 71);
+    }
+    #city_map {
+      /* width: 50%; */
+      border-radius: 12px;
+      /* border: 1px solid springgreen; */
+    }
+    #gmap_canvas {
+      border-radius: 12px;
+    }
+    #for7 {
+      margin-top: 40px;
+      width: 90%;
+      font-size: 20px;
+      margin: auto;
+      /* display: flex; */
+    }
+    span {
+      font-size: 26px;
+      color: aqua;
+      font-weight: bolder;
+    }
+    #for7 p {
+      color: rgb(39, 86, 106);
+    }
+    /* #product-container>div{
+        padding: 15px;
+        border-radius: 12px;
+        background-color: rgb(240, 194, 194);
+        color: white;
+        border: 4px solid red;
+    } */
+    #product-container img {
+      height: 90px;
+      width: 90px;
+    }
+    #middle {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-columns: repeat(17);
+    }
+    #middle span {
+      color-interpolation-filters: linearRGB;
+      color: darkblue;
+      font-size: 16px;
+    }
+    #c {
+      margin-top: 8px;
+    }
+    .co {
+      border: 3px solid cyan;
+      border-radius: 40%;
+      display: flex;
+      width: 30px;
+      height: 20px;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(225, 230, 235);
+    }
+    .we {
+      border: 3px solid cyan;
+      background-color: rgb(225, 230, 235);
+      width: 30px;
+      height: 20px;
+      border-radius: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .product {
+      position: relative;
+      overflow: hidden;
+      height: auto;
+      padding: 0px;
+      padding-bottom: 40px;
+      /* border: 1px solid green; */
+      background-color: #f6f6f6;
+    }
+    .big-containerr {
+      background-color: white;
+      width: 100%;
+      box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+        rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    }
+    .product-container {
+      /* padding: 0 10vw; */
+      display: flex;
+      width: 84%;
+      margin: auto;
+      height: auto;
+      /* border: 1px solid red; */
+      /* background-color: rgb(240, 194, 194); */
+      background-color: white;
+      padding: 20px 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+    }
+    .product-container::-webkit-scrollbar {
+      display: none;
+    }
+    .product-card {
+      /* border: 1px solid blue; */
+      width: 300px;
+      height: auto;
+      margin-left: 20px;
+      margin-right: 20px;
+      background-color: rgb(244, 211, 237);
+      padding-left: 20px;
+      padding-right: 20px;
+      /* border-top-left-radius: 12px;
+        border-top-right-radius: 12px; */
+      border-radius: 12px;
+    }
+    .product-card:hover {
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
+    .pre-button,
+    .nxt-button {
+      position: absolute;
+      display: flex;
+      /* top: 10px; */
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffff 100%);
+      cursor: pointer;
+      z-index: 9;
+      border-radius: 50%;
+      border: #f6f6f6;
+      opacity: 0.8;
+      height: 50px;
+      width: 50px;
+      color: red;
+      justify-content: center;
+      align-items: center;
+      transition: all 300ms ease;
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
+    .pre-button:hover,
+    .nxt-button:hover {
+      transform: scale(1.1);
+    }
+    .pre-button {
+      left: 80px;
+      transform: rotate(180);
+      margin-top: 72px;
+    }
+    .nxt-button {
+      right: 59.5px;
+      margin-top: 72px;
+    }
+    /* .pre-button {
+        margin-top: 90px;
+      } */
+    /* .pre-button + .nxt-button {
+        margin-top: 90px;
+      } */
+  </style>
+  <body>
+    <nav>
+      <input type="text" id="enter_name" placeholder="Enter Your City" />
+      <button id="search">Search</button>
+    </nav>
+    <div id="alldata">
+      <div id="city_weather"></div>
+      <div id="middle"></div>
+      <div id="city_map"></div>
+    </div>
+    <div id="for7"></div>
+    <section class="product">
+      <button class="pre-button"><</button>
+      <button class="nxt-button">></button>
+      <div class="big-containerr">
+        <div class="product-container"></div>
+      </div>
+    </section>
+  </body>
+</html>
+
+<script>
+  let search = document.querySelector("#search");
+  search.addEventListener("click", searc);
+
+  function searc() {
+    let cityname = document.querySelector("#enter_name").value;
+
+    let apikey = `8da6f91ed74f275b258ec4168fc45df9`;
+
+    async function weatherdata() {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${apikey}`;
+
+      let data = await fetch(url);
+      let user = await data.json();
+      append(user);
+      console.log(user);
+    }
+    weatherdata();
+
+    let city = document.querySelector("#city_weather");
+    function append(data) {
+      city.innerHTML = "";
+
+      let div = document.createElement("div");
+      div.setAttribute("class", "city_first");
+
+      let cn = document.createElement("h1");
+      cn.innerText = data.name;
+
+      let divmintemp = document.createElement("div");
+      divmintemp.style.display = "flex";
+      // divmintemp.style.width="30%"
+      divmintemp.style.justifyContent = "space-between";
+      divmintemp.style.alignItems = "center";
+
+      let min = document.createElement("img");
+      min.setAttribute(
+        "src",
+        "https://week-of-icons-2018.netlify.com/data/4/animations/4.gif"
+      );
+      min.style.height = "50px";
+      min.style.width = "50px";
+      min.style.borderRadius = "50%";
+      divmintemp.append(min);
+
+      let max = document.createElement("h3");
+      max.innerText =
+        "Min Temp: " + Math.floor(Number(data.main.temp_min) - 273.15) + "°C";
+      divmintemp.append(max);
+
+      let divmaxtemp = document.createElement("div");
+      divmaxtemp.style.display = "flex";
+      // divmaxtemp.style.width="30%"
+      divmaxtemp.style.justifyContent = "space-between";
+      divmaxtemp.style.alignItems = "center";
+
+      let min1 = document.createElement("img");
+      min1.setAttribute(
+        "src",
+        "https://cdn.dribbble.com/users/31818/screenshots/6184200/gif-dribbb.gif"
+      );
+      min1.style.height = "50px";
+      min1.style.width = "50px";
+      min1.style.borderRadius = "50%";
+      divmaxtemp.append(min1);
+
+      let max1 = document.createElement("h3");
+      max1.innerText =
+        "Max Temp: " + Math.floor(Number(data.main.temp_max) - 273.15) + "°C";
+      divmaxtemp.append(max1);
+
+      let winddiv = document.createElement("div");
+      winddiv.style.display = "flex";
+      //  winddiv.style.width="30%"
+      winddiv.style.justifyContent = "space-between";
+      winddiv.style.alignItems = "center";
+
+      let wind = document.createElement("img");
+      wind.setAttribute(
+        "src",
+        "https://64.media.tumblr.com/ac6a704231f6099e45790f628a175dbc/tumblr_onfa39Z64g1t2kke2o1_r1_1280.gifv"
+      );
+      wind.style.height = "50px";
+      wind.style.width = "50px";
+      wind.style.borderRadius = "50%";
+
+      let win = document.createElement("h3");
+      win.innerText = "Wind Speed: " + data.wind.speed + " m/s";
+      winddiv.append(wind, win);
+
+      let sunrisediv = document.createElement("div");
+      sunrisediv.style.display = "flex";
+      // sunrisediv.style.width="30%"
+      sunrisediv.style.justifyContent = "space-between";
+      sunrisediv.style.alignItems = "center";
+
+      let rise = document.createElement("img");
+      rise.setAttribute(
+        "src",
+        "https://i.pinimg.com/originals/7e/ed/b8/7eedb8511846a6b6ed4db46508ec0e7e.gif"
+      );
+      rise.style.height = "50px";
+      rise.style.width = "50px";
+      rise.style.borderRadius = "50%";
+
+      let d = new Date(data.sys.sunrise);
+      let h = d.getUTCHours();
+      let m = d.getMinutes();
+      let x = h + ":" + m + " AM";
+
+      let risee = document.createElement("h3");
+      risee.innerText = "Sunrise: " + x;
+      sunrisediv.append(rise, risee);
+
+      let sunsetdiv = document.createElement("div");
+      sunsetdiv.style.display = "flex";
+      // sunsetdiv.style.width="30%"
+      sunsetdiv.style.justifyContent = "space-between";
+      sunsetdiv.style.alignItems = "center";
+
+      let sset = document.createElement("img");
+      sset.setAttribute("src", "https://i.redd.it/3msdpkx3dgm61.gif");
+      sset.style.height = "50px";
+      sset.style.width = "50px";
+      sset.style.borderRadius = "50%";
+
+      let d1 = new Date(data.sys.sunset * 10);
+      let h1 = d1.getUTCHours();
+      console.log(h1);
+      let m1 = d1.getMinutes();
+      let x1 = Math.abs(Number(h1) - 12) + ":" + m1 + " PM";
+
+      let ssset = document.createElement("h3");
+      ssset.innerText = "Sunset: " + x1;
+      sunsetdiv.append(sset, ssset);
+
+      let clouddiv = document.createElement("div");
+      clouddiv.style.display = "flex";
+      // clouddiv.style.width="30%"
+      clouddiv.style.justifyContent = "space-between";
+      clouddiv.style.alignItems = "center";
+
+      let cloud = document.createElement("img");
+      cloud.setAttribute(
+        "src",
+        "https://i.pinimg.com/originals/8e/a3/f8/8ea3f820b1ef8cf4b04cecb098c43709.gif"
+      );
+      cloud.style.height = "50px";
+      cloud.style.width = "50px";
+      cloud.style.borderRadius = "50%";
+
+      let cloudy = document.createElement("h3");
+      cloudy.innerText = "Cloudy Type:" + data.weather[0].description;
+      clouddiv.append(cloud, cloudy);
+
+      div.append(
+        cn,
+        divmintemp,
+        divmaxtemp,
+        winddiv,
+        sunrisediv,
+        sunsetdiv,
+        clouddiv
+      );
+      city.append(div);
+    }
+
+    document.querySelector("#middle").innerHTML = `  <span class="we">W</span>
+            <span class="we">E</span>
+            <span class="we">A</span>
+            <span class="we">T</span>
+            <span class="we">H</span>
+            <span class="we">E</span>
+            <span class="we">R</span>
+            <span class="co" id="c">C</span>
+            <span class="co">O</span>
+            <span class="co">N</span>
+            <span class="co">D</span>
+            <span class="co">I</span>
+            <span class="co">T</span>
+            <span class="co">I</span>
+            <span class="co">O</span>
+            <span class="co">N</span>
+            <span class="co">S</span>`;
+
+    let map = document.querySelector("#city_map");
+
+    map.innerHTML = `<div class="gmap_canvas">
+                <iframe
+                  width="600"
+                  height="500"
+                  id="gmap_canvas"
+                  src="https://maps.google.com/maps?q=${cityname}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  frameborder="0"
+                  scrolling="no"
+                  marginheight="0"
+                  marginwidth="0"
+                ></iframe
+                >
+              </div>`;
+
+    // map.setAttribute("src", `https://maps.google.com/maps?q=2880%20Broadway,%20New%20York&t=&z=13&ie=UTF8&iwloc=&output=embed`)
+
+    async function fore() {
+      const url1 = `https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=${apikey}`;
+
+      let data = await fetch(url1);
+      let user = await data.json();
+      appendfore(user);
+      //  console.log(user)
+    }
+    fore();
+
+    let forecastdiv = document.querySelector(".product-container");
+
+    var weeks = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    function appendfore(data) {
+      document.querySelector(
+        "#for7"
+      ).innerHTML = `<p>Weather Forecast After Every 3 Hours For Next 5 Days for <span>${data.city.name}</span></p>`;
+
+      forecastdiv.innerHTML = "";
+
+      for (var j = 0; j < 40; j++) {
+        let maindiv = document.createElement("div");
+        maindiv.style.border = "4px solid red";
+        maindiv.setAttribute("class", "product-card");
+
+        let icondiv = document.createElement("div");
+        icondiv.style.display = "flex";
+        icondiv.style.justifyContent = "center";
+        icondiv.style.alignItems = "center";
+
+        var ico = data.list[j].weather[0].icon;
+        var icon = "";
+        for (var i = 0; i < ico.length; i++) {
+          if (ico[i] == "n") {
+            icon += "d";
+          } else {
+            icon += ico[i];
+          }
+        }
+        // console.log(icon)
+        let iconn = document.createElement("img");
+        iconn.setAttribute(
+          "src",
+          "http://openweathermap.org/img/w/" + icon + ".png"
+        );
+        icondiv.append(iconn);
+
+        var d = new Date(data.list[j].dt_txt);
+        let day = weeks[d.getDay()];
+        let h1day = document.createElement("h1");
+        h1day.innerText = day;
+        h1day.style.textAlign = "center";
+
+        let dof = document.createElement("p");
+        dof.innerText = "| " + data.list[j].dt_txt + " Hrs |";
+        dof.style.textAlign = "center";
+        dof.style.color = "#000080";
+
+        let minmaxtemp = document.createElement("div");
+        minmaxtemp.style.display = "flex";
+        minmaxtemp.style.width = "240px";
+        minmaxtemp.style.justifyContent = "space-between";
+        minmaxtemp.style.alignItems = "center";
+
+        let mitemp = data.list[j].main.temp_min;
+        let mindiv = document.createElement("h3");
+        mindiv.innerText = "Min " + Math.floor(Number(mitemp) - 273) + "°C";
+        minmaxtemp.append(mindiv);
+
+        let mtemp = data.list[j].main.temp_max;
+        let maxdiv = document.createElement("h3");
+        maxdiv.innerText = "Max " + Math.floor(Number(mtemp) - 268) + "°C";
+        minmaxtemp.append(maxdiv);
+
+        maindiv.append(icondiv, h1day, dof, minmaxtemp);
+        forecastdiv.append(maindiv);
+      }
+    }
+
+    // async function daysss(){
+    //     const url = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${cityname}&units=metric&cnt=7&appid=${apikey}`
+
+    //     let data = await fetch(url);
+    //     let user = await data.json();
+
+    //     console.log("Forecast for 7 day :- "+user);
+
+    // }
+    // daysss()
+
+    const productcon = [...document.querySelectorAll(".product-container")];
+    const nxtbtn = [...document.querySelectorAll(".nxt-button")];
+    const prebtn = [...document.querySelectorAll(".pre-button")];
+
+    productcon.forEach(function (el, i) {
+      let containerdimensions = el.getBoundingClientRect();
+      let containerwidth = containerdimensions.width;
+
+      nxtbtn[i].addEventListener("click", () => {
+        el.scrollLeft += containerwidth;
+      });
+
+      prebtn[i].addEventListener("click", () => {
+        el.scrollLeft -= containerwidth;
+      });
+    });
+  }
+</script>
+
+<!-- netlify link => https://jocular-belekoy-45c94c.netlify.app/ -->

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+    
+    var arr=JSON.parse(localStorage.getItem("productdata"));
+
+    displaydata(arr)
+
+    function displaydata(data){
+
+        document.querySelector("body").innerHTML="";
+
+        // var mdiv=document.createElement("div")
+
+        var bbdiv=document.createElement("div")
+            bbdiv.style.display="grid"
+            // bbdiv.style.border="1px solid red"
+            bbdiv.style.gridTemplateColumns="1fr 1fr 1fr 1fr"
+            bbdiv.style.gridTemplateRows="auto"
+            bbdiv.style.gap="20px"
+            
+
+        data.forEach(function(el,index){
+
+           
+
+            var bdiv=document.createElement("div")
+            bdiv.setAttribute("class", "product")
+            bdiv.style.height="500px";
+            // bdiv.style.border="1px solid green"
+            
+            var img=document.createElement("img")
+            img.setAttribute("src", el.image)
+            img.style.height="50%"
+            img.style.width="75%"
+
+            var name=document.createElement("h2")
+            name.innerText=el.name;
+
+            var cat=document.createElement("p")
+            cat.innerText=el.category;
+
+            var gender=document.createElement("h3")
+            gender.innerText=el.gender;
+
+            var price=document.createElement("h4")
+            price.innerText="Rs"+el.price;
+
+            var remove=document.createElement("button")
+            remove.setAttribute("id","remove")
+            remove.innerText="Remove"
+            remove.addEventListener("click", function(){
+                 removee(el,index)
+            })
+
+             var sold=document.createElement("button")
+            //  sold.setAttribute("id","sold")
+             sold.innerText=el.sold;
+             if(sold.innerText=="false")
+             {
+                 sold.style.backgroundColor="green"
+             }
+             else
+             {
+                 sold.style.backgroundColor="red"
+             }
+             sold.addEventListener("click", function(){
+                 solding(el,sold)
+            })
+
+            bdiv.append(img,name,cat,gender,price,remove,sold)
+            bbdiv.append(bdiv)
+            // mdiv.append(bbdiv)
+            
+        })
+        
+        document.querySelector("body").append(bbdiv)
+
+    }
+
+    function removee(el,index){
+        arr.splice(index, 1)
+
+        localStorage.setItem("productdata", JSON.stringify(arr))
+
+        displaydata(arr);
+
+        window.location.reload();
+    }
+
+    function solding(el,sold){
+        if(el.sold==true)
+        {
+            sold.style.backgroundColor="green"
+            sold.innerText="false"
+            el.sold=false
+            return el.sold;
+            // displaydata(arr)
+        }
+        if(el.sold==false)
+        {
+            sold.style.backgroundColor="red"
+            el.sold=true
+            sold.innerText="true"
+            return el.sold;
+            // displaydata(arr)
+        }
+    }
+
+</script>

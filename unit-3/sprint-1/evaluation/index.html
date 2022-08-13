@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+     #navbar{
+      height: 50px;
+      border: 4px solid rgb(38, 38, 55);
+      border-radius: 10px;
+      width: 95%;
+      margin: auto;
+      margin-bottom: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #show_products{
+      font-size: 24px;
+      border-radius: 4px solid rgb(31, 31, 46);
+      color: white;
+      background-color: rgb(31, 31, 49);
+      height: 100%;
+    }
+    #show_products:hover{
+      width: 300px;
+      font-size: 30px;
+      cursor: pointer;
+      color:rgb(31, 31, 49);
+      background-color: white;
+      border-radius: 12px;
+    }
+    h2{
+      margin: auto;
+      width: 10%;
+    }
+    #products{
+      /* border: 1px solid red; */
+      width: 20%;
+      margin: auto;
+      margin-top: 20px;
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
+    #add_product{
+      margin: auto;
+      border: 1px solid red;
+      margin-left: 90px;
+      margin-top: 20px;
+      height: 30px;
+      width: 130px;
+      font-size: 15px;
+      color: white;
+      background-color: red;
+    }
+    #add_product:hover{
+      cursor: pointer;
+      width: 160px;
+      height: 50px;
+      font-size: 25px;
+      color: red;
+      background-color: white;
+      margin-left: 70px;
+      margin-top: 10px;
+    }
+    input{
+      height: 30px;
+      width: 80%;
+      border-radius: 8px;
+      border: 1px solid rgb(26, 26, 53);
+    }
+  </style>
+  <body>
+    <div id="navbar">
+      <!--Create Show Products button here, give id as "show_products". avoid making spelling mistakes in HTML id's-->
+      <button id="show_products">Show Products</button>
+    </div>
+    <div>
+      <h2>Add Products</h2>
+      <!--Create a form here to accept product data from user, give form HTML id as "products"-->
+      <form id="products">    
+      <!--Create four inputs to accept Type, Description, price, & image-->
+      <!--give the inputs following respective id's, "type", "desc", "price","image"-->
+      <!--create a "Add Product" button to submit form, give it html id as "add_product"-->
+      <input type="text" id="type" placeholder="What is your Product's Type?"><br><br>
+      <input type="text" id="desc" placeholder="Enter Product Description Here"><br><br>
+      <input type="number" id="price" placeholder="Enter Price in Rs"><br><br>
+      <input type="url" id="image" placeholder="Enter Your Image  Link here!"><br><br>
+      <input type="submit" id="add_product" value="Add Product">
+      </form>
+    </div>
+  </body>
+</html>
+
+<script src="index.js"></script>
+
+

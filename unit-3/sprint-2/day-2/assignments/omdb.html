@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    form{
+        margin-bottom:50px ;
+    }
+    #main{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-template-rows: auto;
+        gap: 20px;
+        margin-top: 40px;
+        width: 95%;
+        margin:auto;
+    }
+</style>
+<body>
+    <form>
+        <input type="text" id="search" placeholder="Enter Title">
+        <input type="submit" value="search">
+    </form>
+    <div id="main">
+
+    </div>
+</body>
+</html>
+
+<script>
+
+
+
+
+
+    var form=document.querySelector("form")
+    form.addEventListener("submit", sub)
+
+
+    function sub(){
+        event.preventDefault();
+
+        const title=form.search.value;
+        const url=`http://www.omdbapi.com/?s=${title}&plot=full&apikey=107307d6`
+    
+        async function searching(){
+
+            try{
+                let data = await fetch(url)
+                let user = await data.json();
+
+                for(var i=0;i<user.Search.length;i++)
+                {
+                    if(i%2==0)
+                    {
+                        user.Search[i].rating=7
+                    }
+                    if(i%2!=0)
+                    {
+                        user.Search[i].rating=8
+                    }
+                    if(i%2!==0 && i%3!=0)
+                    {
+                        user.Search[i].rating=9
+                    }
+                }
+
+                appendd(user.Search)
+                console.log(user.Search)
+            }
+            catch(err){
+                not();
+            }
+
+        }
+        searching();
+
+        function not(){
+            let div=document.createElement("div")
+            div.style.marginLeft="320px"
+            let img=document.createElement("img")
+            img.style.width="900px"
+            img.style.height="600px"
+            img.style.opacity="0.8"
+            img.setAttribute("src", "https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif")
+            div.append(img);
+            document.querySelector("#main").append(div)
+        //    document.querySelector("#main").innerHTML="";
+            setTimeout(function(){
+
+            //   let imge=document.createElement("img")
+            img.setAttribute("src", "https://i1.wp.com/media.giphy.com/media/8L0Pky6C83SzkzU55a/source.gif?w=525&ssl=1")
+            div.append(img);
+            document.querySelector("#main").append(div)
+            
+
+            },3000)
+
+        }
+
+        function appendd(data){
+           
+            let div=document.createElement("div")
+            div.style.marginLeft="320px"
+            let img=document.createElement("img")
+            img.style.width="900px"
+            img.style.height="600px"
+            img.style.opacity="0.8"
+            img.setAttribute("src", "https://hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif")
+            div.append(img);
+            document.querySelector("#main").append(div)
+
+
+            setTimeout(function(){
+                document.querySelector("#main").innerHTML="";
+                data.forEach(function(el){
+
+                var div=document.createElement("div")
+
+                var img=document.createElement("img")
+                img.setAttribute("src", el.Poster)
+                div.append(img);
+
+                var h2=document.createElement("h2")
+                h2.innerText=el.Title;
+
+                var p=document.createElement("p")
+                p.innerText=el.Year;
+
+                var h3=document.createElement("h3")
+                h3.innerText=el.Type;
+
+                var hh2=document.createElement("h2")
+                hh2.innerText="IMDB Rating: "+el.rating;
+                hh2.style.color="green"
+                div.append(h2,p,h3,hh2)
+                
+                if(el.rating>8)
+                {
+                    var re=document.createElement("p")
+                    re.innerText="RECOMMENDED"
+                    re.style.color="white";
+                    re.style.backgroundColor="red"
+                    div.append(re)
+                }
+
+               
+                document.querySelector("#main").append(div)
+            })
+        },4000)
+
+            
+        }
+        
+
+    
+    }
+
+    // console.log(title)
+
+</script>
